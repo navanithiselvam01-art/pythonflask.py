@@ -31,16 +31,13 @@ class FlaskApplicationTest(unittest.TestCase):
         response = self.client.get('/api/cart', content_type="application/json")
         self.assertEqual(response.status_code, 200)
 
-    def test_add_to_cart(self):
-        data = {
-            "productId": "p1",
-            "quantity": 1
-        }
-        response = self.client.post(
+    def test_cart_get(self):
+        self.client.post(
             "/api/cart",
-            data=json.dumps(data),
+            data=json.dumps({"productId": "p1", "quantity": 1}),
             content_type="application/json"
         )
+        response = self.client.get('/api/cart', content_type="application/json")
         self.assertEqual(response.status_code, 200)
 
     def test_orders(self):
